@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 const Evolutions = () => (
     <div className="mt-4 evolutions flex justify-around items-center bg-gray-200 p-5 rounded-lg">

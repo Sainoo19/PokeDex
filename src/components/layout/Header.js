@@ -24,6 +24,9 @@ const Header = () => {
                 </div>
                 <nav className={`space-x-4 ${isMobile ? 'hidden' : 'block'}`}>
                     <a href="/pokemons" className="text-gray-700">Pokémon Data</a>
+                    {/* evolution */}
+                    <a href="/evolution" className="text-gray-700">Evolution</a>
+                    
                     <a href="/moves" className="text-gray-700">Moves</a>
                     <a href="/login" className="text-gray-700">Login</a>
                 </nav>
@@ -37,6 +40,7 @@ const Header = () => {
                 <div className="container mx-auto px-4 py-4">
                     <nav className="space-y-4">
                         <a href="/pokemons" className="block text-gray-700">Pokémon Data</a>
+                        <a href="/evolution" className="block text-gray-700">Evolution</a>
                         <a href="/moves" className="block text-gray-700">Moves</a>
                         <a href="/login" className="block text-gray-700">Login</a>
                     </nav>
