@@ -23,7 +23,7 @@ const Header = () => {
                     <h1 className="text-xl font-bold">Pokémondex</h1>
                 </div>
                 <nav className={`space-x-4 ${isMobile ? 'hidden' : 'block'}`}>
-                    <a href="/pokemons" className="text-gray-700">Pokémon Data</a>
+                    <a href="/pokemon/all" className="text-gray-700">Pokémon Data</a>
                     <a href="/moves" className="text-gray-700">Moves</a>
                     <a href="/login" className="text-gray-700">Login</a>
                 </nav>
