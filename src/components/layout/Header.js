@@ -27,11 +27,15 @@ const Header = () => {
                     <h1 className="text-2xl font-extrabold tracking-wide hover:text-red-500">Pokémondex</h1>
                 </div>
 
+
+
                 {/* Nav Links for larger screens */}
                 <nav className={`space-x-6 ${isMobile ? 'hidden' : 'block'}`}>
                     <a href="/pokemon/all" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Pokémon Data</a>
                     <a href="/moves" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Moves</a>
+                    <a href="/evolution" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Evolution</a>
                     <a href="/login" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Login</a>
+
                 </nav>
 
                 {/* Mobile Menu Button */}
@@ -50,9 +54,12 @@ const Header = () => {
             {isMobile && menuOpen && (
                 <div className="bg-white border-t-4 border-red-500 container mx-auto px-6 py-4 mt-2 rounded-lg shadow-lg transition-transform transform duration-500 ease-in-out">
                     <nav className="space-y-4">
+
                         <a href="/pokemon/all" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Pokémon Data</a>
                         <a href="/moves" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Moves</a>
+                        <a href="/evolution" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Evolution</a>
                         <a href="/login" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Login</a>
+
                     </nav>
                 </div>
             )}
