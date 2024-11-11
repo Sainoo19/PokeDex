@@ -9,7 +9,11 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    extend: {
+      textColor: ['hover', 'focus'],  
+    },
+  },
   plugins: [],
 }
 

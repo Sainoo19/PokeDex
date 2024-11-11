@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import PokemonInfo from '../../components/pokemon/PokemonInfo';
 import StatsTable from '../../components/table/StatsTable';
 import Evolutions from '../../components/pokemon/Evolutions';
 import ExploreButton from '../../components/layout/ExploreButton';
+import pokemonData from '../../components/data/Pokemon';
 
-const DetailPokemon = () => {
-    const { name } = useParams();
+const App = () => {
+    const { name: paramName } = useParams();
+    const name = paramName || "Dialga"; // Set default name to "Bulbasaur"
     const [pokemon, setPokemon] = useState(null);
     const [weaknesses, setWeaknesses] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = () => {
             try {
-                const [pokemonResponse, typeResponse] = await Promise.all([
-                    axios.get(`http://localhost:8080/api/pokemon/${name}`),
-                    axios.get(`http://localhost:8080/api/pokemon/type/${name}`)
-                ]);
-
-                setPokemon(pokemonResponse.data);
-                setWeaknesses(typeResponse.data);
-              
+                const data = pokemonData.find(p => p.name.toLowerCase() === name.toLowerCase());
+                if (data) {
+                    setPokemon(data);
+                    // Assuming weaknesses are part of the data structure
+                    setWeaknesses(data.weaknesses || []);
+                } else {
+                    console.error('Pokemon not found');
+                }
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching the pokemon data:', error);
             }
         };
 
@@ -46,7 +47,7 @@ const DetailPokemon = () => {
                     <PokemonInfo pokemon={pokemon} weaknesses={weaknesses} />
                     <StatsTable stats={pokemon.base_stats} />
                     <Evolutions evolutions={pokemon.evolutions} />
-
+                    <ExploreButton />
                 </div>
             </div>
             <Footer />
@@ -54,4 +55,4 @@ const DetailPokemon = () => {
     );
 };
 
-export default DetailPokemon;
+export default App;
