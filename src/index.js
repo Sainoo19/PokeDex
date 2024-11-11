@@ -5,7 +5,8 @@ import './index.css';
 import Homepage from './pages/client/homepage';
 import App from './pages/client/App';
 import DetailPokemon from './pages/client/detailPokemon';
-import PokemonList from './pages/client/pokemon';
+//import PokemonList from './pages/client/pokemon';
+import PokemonList from './pages/client/pokemonBE';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
