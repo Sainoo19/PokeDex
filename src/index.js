@@ -5,6 +5,7 @@ import './index.css';
 import Homepage from './pages/client/homepage';
 import App from './pages/client/App';
 import DetailPokemon from './pages/client/detailPokemon';
+import Move from './pages/client/move';
 
 import DetailEvolution from './pages/client/detailEvolution';
 
@@ -18,9 +19,8 @@ root.render(
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/pokemon/:name" element={<DetailPokemon />} />
-
+        <Route path="/moves" element={<Move />} />
         <Route path="/evolution" element={<DetailEvolution />} />
-
         <Route path="/pokemon/all" element={<PokemonList />} />
 
       </Routes>

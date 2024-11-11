@@ -46,7 +46,7 @@ const DetailPokemon = () => {
                     <PokemonInfo pokemon={pokemon} weaknesses={weaknesses} />
                     <StatsTable stats={pokemon.base_stats} />
                     <Evolutions evolutions={pokemon.evolutions} />
-                    <ExploreButton />
+
                 </div>
             </div>
             <Footer />
