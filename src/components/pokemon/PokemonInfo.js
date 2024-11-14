@@ -22,19 +22,19 @@ const typeToStyle = {
     // Add more types if needed
 };
 
-const PokemonInfo = ({ pokemon, weaknesses }) => {
+const PokemonInfo = ({ pokemon, weaknesses = [] }) => {
     console.log('Pokemon Info Props:', { pokemon, weaknesses });
 
     return (
-        <div className="flex">
-            <div className="w-1/2">
+        <div className="flex flex-col md:flex-row">
+            <div className="w-full md:w-1/2">
                 <img
                     src={`/assets/images/${pokemon.name}.png`}
                     alt={pokemon.name}
                     className="pokemon-image w-full rounded-lg"
                 />
             </div>
-            <div className="w-1/2 pl-4">
+            <div className="w-full md:w-1/2 pl-4 mt-4 md:mt-0">
                 <p>{pokemon.description}</p>
                 <div className="bg-blue-100 p-4 mt-4 rounded">
                     <p><strong>Height:</strong> {pokemon.height} m</p>
@@ -43,17 +43,25 @@ const PokemonInfo = ({ pokemon, weaknesses }) => {
                 </div>
                 <div className="mt-4">
                     <p><strong>Type:</strong></p>
-                    {pokemon.type.map(t => (
-                        <div key={t} className={`px-2 py-1 rounded-lg ${typeToStyle[t] || "bg-gray-200 text-gray-800"} mr-1`}>
-                            {t}
-                        </div>
-                    ))}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {pokemon.type.map(t => (
+                            <div key={t} className={`mt-3 px-5 py-1 rounded-lg ${typeToStyle[t] || "bg-gray-200 text-gray-800"}`}>
+                                {t}
+                            </div>
+                        ))}
+                    </div>
                     <p><strong>Weaknesses:</strong></p>
-                    {/* {weaknesses.map(w => (
-                        <div key={w} className={`px-2 py-1 rounded-lg ${typeToStyle[w] || "bg-gray-200 text-gray-800"} mr-1`}>
-                            {w}
-                        </div>
-                    ))} */}
+                    <div className="flex flex-wrap gap-2">
+                        {Array.isArray(weaknesses) && weaknesses.length > 0 ? (
+                            weaknesses.map(w => (
+                                <div key={w} className={`mt-1 px-5 py-1 rounded-lg ${typeToStyle[w] || "bg-gray-200 text-gray-800"}`}>
+                                    {w}
+                                </div>
+                            ))
+                        ) : (
+                            <p>No weaknesses available.</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

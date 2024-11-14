@@ -1,6 +1,4 @@
-import React from 'react';
-
-const StatsTable = () => (
+const StatsTable = ({ stats }) => (
     <div className="mt-4">
         <p><strong>Stats:</strong></p>
         <table className="stats-table w-full border-collapse">
@@ -16,12 +14,12 @@ const StatsTable = () => (
             </thead>
             <tbody>
                 <tr>
-                    <td className="border p-2">45</td>
-                    <td className="border p-2">49</td>
-                    <td className="border p-2">49</td>
-                    <td className="border p-2">65</td>
-                    <td className="border p-2">65</td>
-                    <td className="border p-2">45</td>
+                    <td className="border p-2">{stats.hp}</td>
+                    <td className="border p-2">{stats.attack}</td>
+                    <td className="border p-2">{stats.defense}</td>
+                    <td className="border p-2">{stats.special_attack}</td>
+                    <td className="border p-2">{stats.special_defense}</td>
+                    <td className="border p-2">{stats.speed}</td>
                 </tr>
             </tbody>
         </table>
