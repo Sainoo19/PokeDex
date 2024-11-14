@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+
 
 const typeToStyle = {
     Normal: "bg-gray-200 text-gray-800",
@@ -56,6 +58,7 @@ const Evolutions = ({ pokemon, evolutions }) => {
             ) : (
                 <p>Không có chuỗi tiến hóa nào.</p>
             )}
+
         </div>
     );
 };

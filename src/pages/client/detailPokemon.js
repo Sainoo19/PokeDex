@@ -28,6 +28,7 @@ const DetailPokemon = () => {
 
                 setPokemon(pokemonResponse.data);
                 setWeaknesses(typeResponse.data);
+
                 setWeaknesses(weaknessesResponse.data.weaknesses);
                 setEvolutions(evolutionResponse.data.evolution_chain); // Cập nhật dữ liệu chuỗi tiến hóa
                 setMoves(movesResponse.data.moves); // Lưu moves vào state
@@ -36,6 +37,7 @@ const DetailPokemon = () => {
                 console.log('Weaknesses Response:', weaknessesResponse.data);
                 console.log('Evolution Chain:', evolutionResponse.data); // Kiểm tra dữ liệu chuỗi tiến hóa
                 console.log('Moves:', movesResponse.data.moves); // Kiểm tra dữ liệu moves
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -57,6 +59,7 @@ const DetailPokemon = () => {
                     <h1 className="text-3xl font-bold mb-4 text-center">{pokemon.name}</h1>
                     <PokemonInfo pokemon={pokemon} weaknesses={weaknesses} />
                     <StatsTable stats={pokemon.base_stats} />
+
                     {/* Truyền dữ liệu chuỗi tiến hóa vào component Evolutions */}
                     <Evolutions evolutions={evolutions} />
                     
@@ -96,6 +99,7 @@ const DetailPokemon = () => {
                         </div>
                     </div>
                     <ExploreButton />
+
                 </div>
             </div>
             <Footer />
