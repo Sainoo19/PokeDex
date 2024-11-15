@@ -23,8 +23,9 @@ const Header = () => {
                     className="flex items-center cursor-pointer transition-transform duration-300 transform hover:scale-110"
                     onClick={() => window.location.href = '/'} // Điều hướng về trang chủ
                 >
-                    <img src="https://placehold.co/40x40" alt="Pokémon logo" className="mr-2 rounded-full shadow-lg" />
-                    <h1 className="text-2xl font-extrabold tracking-wide hover:text-red-500">Pokémondex</h1>
+                    <img src="/assets/images/logo/PokeDexLogo.png" alt="Pokémon logo" className="mr-2 rounded-full shadow-lg" style={{ width: '40px', height: '40px' }} />
+
+                    <h1 className="text-2xl font-extrabold tracking-wide hover:text-red-500">PokéDex</h1>
                 </div>
 
 
@@ -34,6 +35,8 @@ const Header = () => {
                     <a href="/pokemon/all" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Pokémon Data</a>
                     <a href="/moves" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Moves</a>
                     <a href="/evolution" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Evolution</a>
+                    <a href="/about" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">About</a>
+                    <a href="/comparison" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Comparison</a>
                     <a href="/login" className="text-lg hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Login</a>
 
                 </nav>
@@ -55,9 +58,10 @@ const Header = () => {
                 <div className="bg-white border-t-4 border-red-500 container mx-auto px-6 py-4 mt-2 rounded-lg shadow-lg transition-transform transform duration-500 ease-in-out">
                     <nav className="space-y-4">
 
-                        <a href="/pokemon/all" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Pokémon Data</a>
+                        <a href="/pokemon/all" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">PokéDex</a>
                         <a href="/moves" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Moves</a>
                         <a href="/evolution" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Evolution</a>
+                        <a href="/about" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">About</a>
                         <a href="/login" className="block text-lg text-gray-700 hover:text-red-500 hover:text-2xl hover:font-bold transition-all duration-300">Login</a>
 
                     </nav>

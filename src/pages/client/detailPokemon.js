@@ -62,9 +62,9 @@ const DetailPokemon = () => {
 
                     {/* Truyền dữ liệu chuỗi tiến hóa vào component Evolutions */}
                     <Evolutions evolutions={evolutions} />
-                    
+
                     <div className="mt-4">
-                    <p className="mb-2"><strong>Moves:</strong></p>
+                        <p className="mb-2"><strong>Moves:</strong></p>
                         <div className="overflow-x-auto bg-white shadow-md rounded-lg">
                             <table className="min-w-full table-auto">
                                 <thead className="bg-gray-200">
@@ -98,7 +98,7 @@ const DetailPokemon = () => {
                             </table>
                         </div>
                     </div>
-                    <ExploreButton />
+
 
                 </div>
             </div>

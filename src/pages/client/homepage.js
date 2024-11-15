@@ -63,7 +63,7 @@ const Homepage = () => {
                             />
                         ))}
                     </div>
-                    <h2 className="text-2xl font-bold mb-4">Pokémon Of The Day</h2>
+                    <h2 className="text-2xl font-bold mb-4 mt-2">Pokémon Of The Day</h2>
                     <div className="grid grid-cols-7 gap-3">
                         {topPokemonData.map(pokemon => (
                             <PokemonCard

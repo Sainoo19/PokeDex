@@ -10,6 +10,8 @@ import Move from './pages/client/move';
 import DetailEvolution from './pages/client/detailEvolution';
 
 import PokemonList from './pages/client/pokemonBE';
+import About from './pages/client/About';
+import ComparisonPage from './pages/client/comparisonPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,6 +23,8 @@ root.render(
         <Route path="/pokemon/:name" element={<DetailPokemon />} />
         <Route path="/moves" element={<Move />} />
         <Route path="/evolution" element={<DetailEvolution />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/comparison" element={<ComparisonPage />} />
         <Route path="/pokemon/all" element={<PokemonList />} />
 
       </Routes>
