@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
+import Header from '../../components/client/layout/Header';
+import Footer from '../../components/client/layout/Footer';
 import { FingerPrintIcon, LockClosedIcon } from '@heroicons/react/outline'
 const people = [
     {

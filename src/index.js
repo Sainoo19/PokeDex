@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css';
 import Homepage from './pages/client/homepage';
-import App from './pages/client/App';
 import DetailPokemon from './pages/client/detailPokemon';
 import Move from './pages/client/move';
 
@@ -12,6 +11,7 @@ import DetailEvolution from './pages/client/detailEvolution';
 import PokemonList from './pages/client/pokemonBE';
 import About from './pages/client/About';
 import ComparisonPage from './pages/client/comparisonPage';
+import AdminPokemon from './pages/admin/Pokemon';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -26,6 +26,7 @@ root.render(
         <Route path="/about" element={<About />} />
         <Route path="/comparison" element={<ComparisonPage />} />
         <Route path="/pokemon/all" element={<PokemonList />} />
+        <Route path="/admin/pokemon" element={<AdminPokemon />} />
 
       </Routes>
     </Router>

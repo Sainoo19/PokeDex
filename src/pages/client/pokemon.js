@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
-import FilterSidebar from '../../components/pokemon/SideBar';
-import PokemonCard from '../../components/pokemon/Card';
+import Header from '../../components/client/layout/Header';
+import Footer from '../../components/client/layout/Footer';
+import FilterSidebar from '../../components/client/pokemon/SideBar';
+import PokemonCard from '../../components/client/pokemon/Card';
 
 const PokemonList = () => {
     const [pokemonData, setPokemonData] = useState([]);

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
-import EvolutionList from '../../components/evolution/EvolutionList';
-import PokemonFilter from '../../components/evolution/PokemonFilter';
-import EvolutionInfo from '../../components/evolution/EvolutionInfo';
+import Header from '../../components/client/layout/Header';
+import Footer from '../../components/client/layout/Footer';
+import EvolutionList from '../../components/client/evolution/EvolutionList';
+import PokemonFilter from '../../components/client/evolution/PokemonFilter';
+import EvolutionInfo from '../../components/client/evolution/EvolutionInfo';
 
 
 const DetailEvolution = () => {
@@ -68,15 +68,15 @@ const DetailEvolution = () => {
 
 
 
-    
+
 
     return (
         <>
-        <Header />
-        <div className="font-sans bg-gray-100 min-h-screen">
-            <div className="mt-20">
-                <div className="container max-w-8xl mx-auto bg-white p-5 rounded shadow-md">
-                    {/* <h1 className="text-4xl font-bold mb-4 text-center">Pokémon evolution guide</h1>
+            <Header />
+            <div className="font-sans bg-gray-100 min-h-screen">
+                <div className="mt-20">
+                    <div className="container max-w-8xl mx-auto bg-white p-5 rounded shadow-md">
+                        {/* <h1 className="text-4xl font-bold mb-4 text-center">Pokémon evolution guide</h1>
                     <div className='bg-gray-200 rounded p-4 text-base m-3'>
                         <p className='mb-4'>Below is a list of Pokémon grouped into their evolutionary chains for easy browsing. The charts also specify the conditions by which they evolve. Note that for most conditional evolutions (such as Friendship), the Pokémon needs to level up once the condition is met in order to evolve. You can quickly search for a Pokémon name using the box below, or use the menu below right to view evolutions by certain conditions.</p>
                         <p>Pokémon with cross-generation evolutions are shown in the earliest generation its Pokémon appear - for example Pichu is shown in Generation 1 because Pikachu/Raichu are Gen 1. Alolan Forms from Pokémon Sun & Moon are also listed in Generation 1, alongside their non-Alolan counterparts.</p>
@@ -89,7 +89,7 @@ const DetailEvolution = () => {
                     </div> */}
 
 
-                    {/* <div className="flex items-center justify-center mb-4">
+                        {/* <div className="flex items-center justify-center mb-4">
                             <p className="mr-2">Filter Pokémon:</p>
                             <input
                                 type="text"
@@ -100,15 +100,15 @@ const DetailEvolution = () => {
                             />
                     </div> */}
 
-                    <EvolutionInfo />
-                    <PokemonFilter searchTerm={searchTerm} onInputChange={handleInputChange} />
-                    <EvolutionList filteredPokemons={filteredPokemons} typeToStyle={typeToStyle} />
+                        <EvolutionInfo />
+                        <PokemonFilter searchTerm={searchTerm} onInputChange={handleInputChange} />
+                        <EvolutionList filteredPokemons={filteredPokemons} typeToStyle={typeToStyle} />
+                    </div>
+
                 </div>
 
             </div>
-
-        </div>
-        <Footer/>
+            <Footer />
         </>
     );
 };

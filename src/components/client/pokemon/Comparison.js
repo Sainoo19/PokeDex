@@ -94,21 +94,33 @@ function Comparison({ pokemon1, pokemon2, view }) {
         let typeEffectivenessResult = '';
         let typeEffectivenessWinner = '';
 
+        let typeInteractionExists = false;
+
         pokemon1Types.forEach(type1 => {
             const type1Data = typeData.find(t => t.name === type1);
             if (type1Data) {
                 pokemon2Types.forEach(type2 => {
-                    if (type1Data.weaknesses.includes(type2)) {
-                        typeEffectivenessResult = `${pokemon2.name} has a type advantage over ${pokemon1.name}`;
-                        typeEffectivenessWinner = pokemon2.name;
-                    } else if (type1Data.resistances.includes(type2)) {
-                        typeEffectivenessResult = `${pokemon1.name} has a type advantage over ${pokemon2.name}`;
-                        typeEffectivenessWinner = pokemon1.name;
+                    if (type1 !== type2) { // Ensure types are not the same
+                        if (type1Data.weaknesses.includes(type2)) {
+                            typeEffectivenessResult = `${pokemon2.name} has a type advantage over ${pokemon1.name}`;
+                            typeEffectivenessWinner = pokemon2.name;
+                            typeInteractionExists = true;
+                        } else if (type1Data.resistances.includes(type2)) {
+                            typeEffectivenessResult = `${pokemon1.name} has a type advantage over ${pokemon2.name}`;
+                            typeEffectivenessWinner = pokemon1.name;
+                            typeInteractionExists = true;
+                        }
                     }
                 });
             }
         });
 
+        // Add fallback if no type interactions exist
+        if (!typeInteractionExists) {
+            typeEffectivenessResult = 'No type advantage detected between the two Pokémon.';
+        }
+
+        // Summarize results
         let summary;
         if (pokemon1Wins > pokemon2Wins) {
             summary = `${pokemon1.name} is stronger with ${pokemon1Wins} winning criteria.`;
@@ -118,18 +130,15 @@ function Comparison({ pokemon1, pokemon2, view }) {
             summary = 'Both Pokémon are equally strong.';
         }
 
-        if (typeEffectivenessWinner) {
-            summary += ` Additionally, ${typeEffectivenessWinner} has a type advantage.`;
-        }
-
-        // Determine overall winner
-        let overallWinner;
+        // Adjust score based on type effectiveness
         if (typeEffectivenessWinner === pokemon1.name) {
             pokemon1Wins += 3;
         } else if (typeEffectivenessWinner === pokemon2.name) {
             pokemon2Wins += 3;
         }
 
+        // Determine overall winner
+        let overallWinner;
         if (pokemon1Wins > pokemon2Wins) {
             overallWinner = `${pokemon1.name} wins overall with ${pokemon1Wins} total criteria.`;
         } else if (pokemon1Wins < pokemon2Wins) {
@@ -148,14 +157,14 @@ function Comparison({ pokemon1, pokemon2, view }) {
             <h2 className="text-2xl font-bold mb-4">Comparison</h2>
             {view === 'table' && (
                 <table className="table-auto w-full">
-                    <thead>
+                    <thead className="bg-red-500 text-white">
                         <tr>
                             <th className="px-4 py-2">Stat</th>
                             <th className="px-4 py-2">{pokemon1.name}</th>
                             <th className="px-4 py-2">{pokemon2.name}</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-orange-100 text-black">
                         {stats.map(stat => (
                             <tr key={stat}>
                                 <td className="border px-4 py-2">{stat.toUpperCase()}</td>
@@ -184,7 +193,6 @@ function Comparison({ pokemon1, pokemon2, view }) {
                 <p className={`p-4 rounded-lg shadow-md ${typeEffectivenessWinner ? 'bg-green-100' : 'bg-blue-100'}`}>{summary}</p>
                 <p className={`p-4 rounded-lg shadow-md ${typeEffectivenessWinner ? 'bg-green-100' : 'bg-blue-100'}`}>Overall Winner: {overallWinner}</p>
                 <div className="mb-4"></div>
-
             </div>
         </div>
     );

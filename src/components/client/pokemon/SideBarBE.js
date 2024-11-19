@@ -54,7 +54,8 @@ const FilterSidebarBE = ({ onFilterChange }) => {
     };
 
     return (
-        <div className="w-1/4 p-4">
+        <div className="w-full lg:w-1/4 p-4 bg-gray-100 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold mb-4">Filters</h2>
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">Ability</label>
                 <select

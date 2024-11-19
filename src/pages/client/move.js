@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
+import Header from '../../components/client/layout/Header';
+import Footer from '../../components/client/layout/Footer';
 import { type } from "@testing-library/user-event/dist/type";
 
 const typeImages = {
@@ -33,8 +33,8 @@ const Move = () => {
     const [nameDropdown, setNameDropdown] = useState(false); //Dropdown cột name
     const [powerDropDown, setPowerDropDown] = useState(false);
     const [accDropDown, setAccDropDown] = useState(false);
-    const [ppDropDown, setPpDropDown] = useState(false); 
-    const [sortConfig, setSortConfig] = useState({key: '', direction: 'ascending' });
+    const [ppDropDown, setPpDropDown] = useState(false);
+    const [sortConfig, setSortConfig] = useState({ key: '', direction: 'ascending' });
     const [searchTerm, setSearchTerm] = useState(''); //lưu giá trị mà người dùng nhập vào
     const [filteredMoves, setFilteredMoves] = useState([]); //lưu danh sách đã lọc
     const [selectedType, setSelectedType] = useState('All');
@@ -60,7 +60,7 @@ const Move = () => {
         setPpDropDown(false);
 
         const sortedMoves = [...moves].sort((a, b) => {
-            if(key === 'name') {
+            if (key === 'name') {
                 return direction === 'ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
             } else if (key === 'power' || key === 'accuracy' || key === 'pp') {
                 return direction === 'ascending' ? a[key] - b[key] : b[key] - a[key];
@@ -88,7 +88,7 @@ const Move = () => {
     //Gọi API
     useEffect(() => {
         const fetchMoves = async () => {
-            try{
+            try {
                 const respone = await axios.get('http://localhost:8080/api/moves');
                 console.log(respone.data);
                 setMoves(respone.data);
@@ -109,9 +109,9 @@ const Move = () => {
         setFilteredMoves(filtered);
     }, [searchTerm, moves, selectedType]);
 
-    return(
+    return (
         <>
-            <Header/>
+            <Header />
             <div className="mt-20"></div>
             <main className="flex-grow">
                 <h1 className="text-4xl font-bold pt-4 flex items-center justify-center">Pokémon moves from Generation 1</h1>
@@ -122,8 +122,8 @@ const Move = () => {
 
                 <div className="flex items-center justify-center m-4">
                     <label htmlFor="filter-move-name">Name/Effect:</label>
-                    <input id="filter-move-name" 
-                        type="text" 
+                    <input id="filter-move-name"
+                        type="text"
                         value={searchTerm}
                         onChange={handleSearchChange}
                         placeholder="Search by name"
@@ -131,10 +131,10 @@ const Move = () => {
                     />
                     <label htmlFor="filter-move-type" className="ml-5">Type:</label>
                     <select id="filter-move-type"
-                            value={selectedType}
-                            onChange={handleTypeChange} 
-                            className="w-24 h-10 border border-neutral-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-blue-400 ml-3"
-                            required>
+                        value={selectedType}
+                        onChange={handleTypeChange}
+                        className="w-24 h-10 border border-neutral-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-blue-400 ml-3"
+                        required>
                         <option value='All'>- All -</option>
                         <option value='Normal'>Normal</option>
                         <option value='Fire'>Fire</option>
@@ -172,17 +172,17 @@ const Move = () => {
                             <tr className="h-10 bg-neutral-200">
                                 <th className="w-44 text-left px-2 border border-neutral-300 border-l-0 cursor-pointer">
                                     <div className="flex items-center justify-between">
-                                        <span>Name</span> 
+                                        <span>Name</span>
                                         <div onClick={() => toggleDropdown('name')} className="relative cursor-pointer">
                                             <FontAwesomeIcon icon={faChevronDown} className="text-gray-500 cursor-pointer " title="Sort" />
                                             {nameDropdown && (
                                                 <div className="absolute right-0 mt-1 min-w-[130px] bg-white border-gray-300 rounded shadow-lg z-10">
-                                                    <div onClick={() => handleSort("name")} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Sort to A-Z</div>
-                                                    <div onClick={() => handleSort("name")} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Sort to Z-A</div>
+                                                    <div onClick={() => handleSort("name")} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Sort to A-Z</div>
+                                                    <div onClick={() => handleSort("name")} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Sort to Z-A</div>
                                                 </div>
                                             )}
                                         </div>
-                                        
+
                                     </div>
                                 </th>
                                 <th className="w-21 text-left px-2 border border-neutral-300">
@@ -195,13 +195,13 @@ const Move = () => {
                                 </th>
                                 <th className="w-21 text-left px-2 border border-neutral-300">
                                     <div className="flex items-center justify-between">
-                                        <span>Power</span> 
+                                        <span>Power</span>
                                         <div onClick={() => toggleDropdown('power')} className="relative cursor-pointer">
                                             <FontAwesomeIcon icon={faChevronDown} className="text-gray-500 cursor-pointer" title="Sort" />
                                             {powerDropDown && (
                                                 <div className="absolute right-0 mt-1 bg-white border-gray-300 rounded shadow-lg z-10">
-                                                    <div onClick={() => handleSort("power", 'ascending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Ascending</div>
-                                                    <div onClick={() => handleSort("power", 'descending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Descending</div>
+                                                    <div onClick={() => handleSort("power", 'ascending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Ascending</div>
+                                                    <div onClick={() => handleSort("power", 'descending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Descending</div>
                                                 </div>
                                             )}
                                         </div>
@@ -209,15 +209,15 @@ const Move = () => {
                                 </th>
                                 <th className="w-17 text-left px-2 border border-neutral-300">
                                     <div className="flex items-center justify-between">
-                                        <span>Acc.</span> 
+                                        <span>Acc.</span>
                                         <div onClick={() => toggleDropdown('acc')} className="relative cursor-pointer">
                                             <FontAwesomeIcon icon={faChevronDown} className="text-gray-500 cursor-pointer" title="Sort" />
-                                                {accDropDown && (
-                                                    <div className="absolute right-0 mt-1 bg-white border-gray-300 rounded shadow-lg z-10">
-                                                        <div onClick={() => handleSort("accuracy", 'ascending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Ascending</div>
-                                                        <div onClick={() => handleSort("accuracy", 'descending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Descending</div>
-                                                    </div>
-                                                )}
+                                            {accDropDown && (
+                                                <div className="absolute right-0 mt-1 bg-white border-gray-300 rounded shadow-lg z-10">
+                                                    <div onClick={() => handleSort("accuracy", 'ascending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Ascending</div>
+                                                    <div onClick={() => handleSort("accuracy", 'descending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Descending</div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </th>
@@ -226,12 +226,12 @@ const Move = () => {
                                         <span>PP</span>
                                         <div onClick={() => toggleDropdown('pp')} className="relative cursor-pointer">
                                             <FontAwesomeIcon icon={faChevronDown} className="text-gray-500 cursor-pointer" title="Sort" />
-                                                {ppDropDown && (
-                                                    <div className="absolute right-0 mt-1 bg-white border-gray-300 rounded shadow-lg z-10">
-                                                        <div onClick={() => handleSort("pp", 'ascending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Ascending</div>
-                                                        <div onClick={() => handleSort("pp", 'descending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{fontWeight: 'normal'}}>Descending</div>
-                                                    </div>
-                                                )}
+                                            {ppDropDown && (
+                                                <div className="absolute right-0 mt-1 bg-white border-gray-300 rounded shadow-lg z-10">
+                                                    <div onClick={() => handleSort("pp", 'ascending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Ascending</div>
+                                                    <div onClick={() => handleSort("pp", 'descending')} className="px-4 py-2 cursor-pointer hover:bg-gray-100" style={{ fontWeight: 'normal' }}>Descending</div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </th>
@@ -251,9 +251,9 @@ const Move = () => {
                                         </td>
                                         <td className="text-center">{move.type}</td>
                                         <td className="flex justify-center items-center h-12">
-                                            <img src={typeImages[move.type.toLowerCase()]} 
-                                            alt={move.type} 
-                                            className="w-8 h-8 object-contain"/>
+                                            <img src={typeImages[move.type.toLowerCase()]}
+                                                alt={move.type}
+                                                className="w-8 h-8 object-contain" />
                                         </td>
                                         <td className="text-center">{move.power}</td>
                                         <td className="text-center">{move.accuracy}</td>
@@ -264,10 +264,10 @@ const Move = () => {
                             })}
                         </tbody>
                     </table>
-            </div>
+                </div>
 
             </main>
-            <Footer/>
+            <Footer />
         </>
     );
 }

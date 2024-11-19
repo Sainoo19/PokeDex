@@ -15,9 +15,10 @@ const Footer = () => {
                 <div className="text-center md:text-left">
                     <h3 className="text-xl font-semibold mb-4">Reference</h3>
                     <ul>
-                        <li><a href="#" className="text-lg transition-all duration-300 transform hover:text-red-500 hover:font-semibold hover:text-xl">Home</a></li>
-                        <li><a href="#" className="text-lg transition-all duration-300 transform hover:text-red-500 hover:font-semibold hover:text-xl">About</a></li>
+                        <li><a href="/" className="text-lg transition-all duration-300 transform hover:text-red-500 hover:font-semibold hover:text-xl">Home</a></li>
+                        <li><a href="/about" className="text-lg transition-all duration-300 transform hover:text-red-500 hover:font-semibold hover:text-xl">About</a></li>
                         <li><a href="#" className="text-lg transition-all duration-300 transform hover:text-red-500 hover:font-semibold hover:text-xl">Contact</a></li>
+                        <li><a href="/admin/pokemon" className="text-lg transition-all duration-300 transform hover:text-red-500 hover:font-semibold hover:text-xl">Admin</a></li>
                     </ul>
                 </div>
 

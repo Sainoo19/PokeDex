@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
-import PokemonCard from '../../components/pokemon/Card';
+import Header from '../../components/client/layout/Header';
+import Footer from '../../components/client/layout/Footer';
+import PokemonCard from '../../components/client/pokemon/Card';
 
 const Homepage = () => {
     const [pokemonData, setPokemonData] = useState([]);

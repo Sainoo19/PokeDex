@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
-import PokemonInfo from '../../components/pokemon/PokemonInfo';
-import StatsTable from '../../components/table/StatsTable';
-import Evolutions from '../../components/pokemon/Evolutions';
-import ExploreButton from '../../components/layout/ExploreButton';
+import Header from '../../components/client/layout/Header';
+import Footer from '../../components/client/layout/Footer';
+import PokemonInfo from '../../components/client/pokemon/PokemonInfo';
+import StatsTable from '../../components/client/table/StatsTable';
+import Evolutions from '../../components/client/pokemon/Evolutions';
+
 
 const DetailPokemon = () => {
     const { name } = useParams();
