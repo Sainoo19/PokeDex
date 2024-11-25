@@ -4,12 +4,36 @@ import SideBar from '../../components/admin/layout/SideBar';
 import Footer from '../../components/admin/layout/Footer';
 import Pagination from '../../components/admin/layout/Pagination';
 
-const AdminPokemon = () => {
+//Thư note B3
+import UseFormValidation from '../../components/admin/validation/UseFormValidation';
+import EditPokemon from '../../components/admin/layout/EditPokemon';
+const AdminPokemon = ({onOpen}) => {
     const [pokemonData, setPokemonData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
 
+    // Thư note B3
+    const [selectedPokemon, setSelectedPokemon] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    //const handleOpenModal = () => setIsModalOpen(true);
+    const handleOpenModal = (pokemon) => {
+        setSelectedPokemon(pokemon);
+        setIsModalOpen(true);
+    }
+    // Thư note B3 Khi modal mở, ngừng cuộn trang chính
+    useEffect(() => {
+        if (isModalOpen) {
+        document.body.style.overflow = "hidden"; // Khóa cuộn của trang Home
+        } else {
+        document.body.style.overflow = "auto"; // Mở cuộn trang Home khi đóng modal
+        }
+
+        // Clean up khi component unmount
+        return () => {
+        document.body.style.overflow = "auto";
+        };
+    }, [isModalOpen]);
     const getLimit = () => {
         return 10; // Set limit to 10 for all screen sizes
     };
@@ -92,12 +116,28 @@ const AdminPokemon = () => {
                                 <td className="py-3 px-6 border-b">{pokemon.type.join('/')}</td>
                                 <td className="py-3 px-6 border-b flex justify-center space-x-2">
                                     <button className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600 transition duration-200">View</button>
-                                    <button className="bg-yellow-500 text-white p-2 rounded-md hover:bg-yellow-600 transition duration-200">Edit</button>
+                                    <button 
+                                        className="bg-yellow-500 text-white p-2 rounded-md hover:bg-yellow-600 transition duration-200"
+                                         //  Thư note B3 
+                                        onClick={() => handleOpenModal(pokemon)} 
+                                    >
+                                        <span>Edit</span> 
+                                    </button>
                                     <button className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 transition duration-200">Delete</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
+
+                    {/* Thư note B3 */}
+                    {isModalOpen && (
+                        <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                            <div className="modal-container bg-white p-6 rounded-lg shadow-lg w-1/2 max-h-[80vh] overflow-y-auto">
+                                
+                                <EditPokemon pokemon={selectedPokemon} />
+                            </div>
+                        </div>
+                    )}
                 </table>
                 <Pagination
                     currentPage={currentPage}
