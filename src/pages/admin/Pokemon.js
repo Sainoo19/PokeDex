@@ -4,11 +4,37 @@ import SideBar from '../../components/admin/layout/SideBar';
 import Footer from '../../components/admin/layout/Footer';
 import Pagination from '../../components/admin/layout/Pagination';
 
-const AdminPokemon = () => {
+//Nhi note B3
+import AddPokemon from '../../components/admin/layout/AddPokemon';
+// import UseFormValidation from '../../components/admin/validation/UseFormValidation';
+
+
+const AdminPokemon = ({onOpen}) => {
     const [pokemonData, setPokemonData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
+
+    // Nhi note B3
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleOpenModal = () => setIsModalOpen(true);
+
+
+    // Nhi note B3 Khi modal mở, ngừng cuộn trang chính
+    useEffect(() => {
+        if (isModalOpen) {
+        document.body.style.overflow = "hidden"; // Khóa cuộn của trang Home
+        } else {
+        document.body.style.overflow = "auto"; // Mở cuộn trang Home khi đóng modal
+        }
+
+        // Clean up khi component unmount
+        return () => {
+        document.body.style.overflow = "auto";
+        };
+    }, [isModalOpen]);
+
+
 
     const getLimit = () => {
         return 10; // Set limit to 10 for all screen sizes
@@ -72,11 +98,24 @@ const AdminPokemon = () => {
                             className="p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600"
                             onChange={handleSearchChange}
                         />
-                        <button className="bg-white text-red-600 border-2 border-red-600 p-3 rounded-lg hover:bg-red-600 hover:text-white transition duration-300">
+                        <button
+                        //  Nhi note B3 
+                            onClick={handleOpenModal} 
+                            className="bg-white text-red-600 border-2 border-red-600 p-3 rounded-lg hover:bg-red-600 hover:text-white transition duration-300">
                             <span className="font-semibold">+ Add Pokemon</span>
                         </button>
                     </div>
                 </div>
+                {/* Nhi note B3 */}
+                {isModalOpen && (
+                    <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="modal-container bg-white p-6 rounded-lg shadow-lg w-1/2 max-h-[80vh] overflow-y-auto">
+                        <AddPokemon />
+                        
+                    </div>
+                    </div>
+                )}
+
                 <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
                     <thead className="bg-gray-800 text-white">
                         <tr>
