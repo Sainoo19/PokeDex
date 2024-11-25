@@ -5,7 +5,7 @@ import Footer from '../../components/admin/layout/Footer';
 import Pagination from '../../components/admin/layout/Pagination';
 
 //Thư note B3
-import UseFormValidation from '../../components/admin/validation/UseFormValidation';
+import UseFormValidation from '../../components/admin/validation/UseFormValidationForEdit';
 import EditPokemon from '../../components/admin/layout/EditPokemon';
 const AdminPokemon = ({onOpen}) => {
     const [pokemonData, setPokemonData] = useState([]);

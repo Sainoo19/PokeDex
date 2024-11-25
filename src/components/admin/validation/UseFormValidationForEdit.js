@@ -5,8 +5,12 @@ import { useState, useRef } from "react";
 
 // Hàm kiểm tra lỗi cho Height
 const validateHeight = (height) => {
-  if (!height || parseFloat(height) <= 0) {
-    return "Height is required and must be greater than 0.";
+  // if (!height || parseFloat(height) <= 0) {
+  //   return "Height is required and must be greater than 0.";
+  // }
+  const parsedHeight = parseFloat(height); // Chuyển đổi height thành số thực
+  if (isNaN(parsedHeight) || parsedHeight <= 0) {
+    return "Height is required and must be greater than 0."; // Trả về thông báo lỗi nếu không hợp lệ
   }
   return ""; // Không có lỗi
 };
@@ -35,7 +39,7 @@ const validateSelect = (value) => {
 };
 
 const validateCheckbox = (checkedValues) => {
-  if (checkedValues.length < 1) {
+  if (!checkedValues || checkedValues.length < 1) {
     return "At least one checkbox must be selected.";
   }
   return ""; // Không có lỗi
@@ -104,7 +108,7 @@ const useFormValidation = () => {
     const numberError5 = validateNumber(number5);
     if (numberError5) errors.number5 = numberError5;
 
-    const checkboxError = validateCheckbox(checkboxValue);
+    const checkboxError = validateCheckbox(checkboxValue);  
     if (checkboxError) errors.checkboxValue = checkboxError;
 
     const checkboxError1 = validateCheckbox(checkboxValue1);

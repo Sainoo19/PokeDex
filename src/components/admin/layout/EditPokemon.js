@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UseFormValidation from "../validation/UseFormValidation";
+import UseFormValidation from "../validation/UseFormValidationForEdit";
 import axios from 'axios';
 
 //đây là nguyên cái form nè
@@ -17,10 +17,17 @@ export default function EditPokemon({pokemon }) {
 //Thư note B3 
   const [name, setName] = useState(pokemon?.name || '');
   const [pokemonData, setPokemonData] = useState(null);
+  const [description, setDescription] = useState('');
+  
     //get API
   useEffect(() => {
     if (pokemon) {
       setName(pokemon.name);
+      setDescription(pokemon.description || '');
+      setHeight(pokemon.height || '');
+      setWeight(pokemon.weight || '');
+      setSelectValue(pokemon?.abilities?.[0]?.name || '');
+      setTypes(pokemon?.types || []);
       const fetchData = async () => {
         try {
           const responseAPokemon = await axios.get(`http://localhost:8080/api/pokemon/${pokemon.name}`);
@@ -77,9 +84,73 @@ const handleCheckboxChange = (name) => {
       return [...prev, name];
     }
   });
+  if (pokemonData) {
+    const updatedTypes = pokemonData?.type.includes(name)
+      ? pokemonData.type.filter((type) => type !== name)
+      : [...pokemonData.type, name];
+    
+    setPokemonData({
+      ...pokemonData,
+      type: updatedTypes,
+    });
+  }
 };
 
 
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setPokemonData((prevData) => ({
+    ...prevData,
+    base_stats: {
+      ...prevData.base_stats,
+      [name]: value, 
+    },
+    evolutions: [
+      {
+        ...prevData.evolutions[0], // Giữ các giá trị khác không thay đổi
+        [name]: value, // Cập nhật trường 'to'
+      },
+    ],
+  }));
+  if (name === "hp") {
+    setNumber(value); // Cập nhật giá trị cho hp
+  } else if (name === "defense") {
+    setNumber2(value); // Cập nhật giá trị cho defense
+  } else if (name === "attack") {
+    setNumber1(value); // Cập nhật giá trị cho attack (ví dụ)
+  }
+  else if (name === "special_attack") {
+    setNumber3(value); // Cập nhật giá trị cho attack (ví dụ)
+  }
+  else if (name === "special_defense") {
+    setNumber4(value); // Cập nhật giá trị cho attack (ví dụ)
+  }
+  else if (name === "speed") {
+    setNumber5(value); // Cập nhật giá trị cho attack (ví dụ)
+  }
+};
+
+const onCheckboxChangeMove = (moveName) => {
+  // Cập nhật pokemonData.moves
+  setPokemonData((prevData) => {
+    const isSelected = prevData.moves?.some((move) => move.name === moveName); // Kiểm tra xem move có trong danh sách không
+    const updatedMoves = isSelected
+      ? prevData.moves.filter((move) => move.name !== moveName) // Nếu đã chọn, loại bỏ
+      : [...(prevData.moves || []), { name: moveName }]; // Nếu chưa chọn, thêm vào
+
+    return {
+      ...prevData,
+      moves: updatedMoves,
+    };
+  });
+
+  // Cập nhật checkboxValue để kiểm soát checkbox
+  setCheckboxValue((prevValues) => {
+    return prevValues.includes(moveName)
+      ? prevValues.filter((name) => name !== moveName) // Nếu đã chọn, loại bỏ
+      : [...prevValues, moveName]; // Nếu chưa chọn, thêm vào
+  });
+};
 
 
   // bắt lỗi height khi save
@@ -143,14 +214,14 @@ const handleCheckboxChange = (name) => {
                           onChange={(e) => setName(e.target.value)} 
                           //
                           className={`block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${
-                          errors.text ? "ring-red-600" : "ring-gray-300"
+                          errors.name ? "ring-red-600" : "ring-gray-300"
                         } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
-                          errors.text ? "focus:ring-red-600" : "focus:ring-indigo-600"
+                          errors.name ? "focus:ring-red-600" : "focus:ring-indigo-600"
                         } sm:text-sm`}     
                       
                         />
                       </div>
-                      {errors && <p className="mt-2 text-sm text-red-600">{errors.text}</p>} {/* Hiển thị lỗi */}
+                      {errors?.name && <p className="mt-2 text-sm text-red-600">{errors.name}</p>} {/* Hiển thị lỗi */}
 
                     </div>
                   </div>
@@ -166,7 +237,10 @@ const handleCheckboxChange = (name) => {
                         rows={3}
                         className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                           //thư note B3
-                        value={pokemonData?.description || ''}
+                        //value={pokemonData?.description || ''}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+
                       />
                     </div>
                     <p className="mt-3 text-sm/6 text-gray-600">Describes the pokemon's status.</p>
@@ -239,16 +313,16 @@ const handleCheckboxChange = (name) => {
                         min="0" // Đảm bảo giá trị lớn hơn hoặc bằng 0
                         step="0.1" // Bước nhảy (thập phân 1 chữ số)
                           //Thư note B3
-                        value={pokemonData?.height || ''}
-
+                        //value={pokemonData?.height || ''}
+                          value={height}
                         onChange={(e) => setHeight(e.target.value)}
                         className={`block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${
-                          errors.height ? "ring-red-600" : "ring-gray-300"
+                          errors?.height ? "ring-red-600" : "ring-gray-300"
                         } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
-                          errors.height ? "focus:ring-red-600" : "focus:ring-indigo-600"
+                          errors?.height ? "focus:ring-red-600" : "focus:ring-indigo-600"
                         } sm:text-sm`}                    />
                     </div>
-                    {errors && <p className="mt-2 text-sm text-red-600">{errors.height}</p>} {/* Hiển thị lỗi */}
+                    {errors?.height && <p className="mt-2 text-sm text-red-600">{errors.height}</p>} {/* Hiển thị lỗi */}
                   </div>
                   
       
@@ -266,13 +340,13 @@ const handleCheckboxChange = (name) => {
                         step="0.1" // Bước nhảy (thập phân 1 chữ số)
                           
                           //Thư note B3
-                        value={pokemonData?.weight || ''}
-
+                        //value={pokemonData?.weight || ''}
+                        value={weight}
                         onChange={(e) => setWeight(e.target.value)}
                         className={`block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${
-                          errors.height ? "ring-red-600" : "ring-gray-300"
+                          errors.weight ? "ring-red-600" : "ring-gray-300"
                         } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
-                          errors.height ? "focus:ring-red-600" : "focus:ring-indigo-600"
+                          errors.weight ? "focus:ring-red-600" : "focus:ring-indigo-600"
                         } sm:text-sm`}     
                       />
                     </div>
@@ -291,8 +365,8 @@ const handleCheckboxChange = (name) => {
                           name="abilities"
                           
                           //Thư note B3
-                          value={pokemonData?.abilities?.[0]?.name || ''}
-
+                          //value={pokemonData?.abilities?.[0]?.name || ''}
+                          value={selectValue}
                           onChange={(e) => setSelectValue(e.target.value)}
                           className={`block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${
                             errors.select ? "ring-red-600" : "ring-gray-300"
@@ -337,9 +411,9 @@ const handleCheckboxChange = (name) => {
                               
                               //Thư note B3
                               checked={pokemonData?.type.includes(type.name)}
-
+                              
                               onChange={() => handleCheckboxChange(type.name)} // Gọi hàm khi checkbox thay đổi
-                              className="h-5 w-5 bg-gray-300 border-2 border-gray-300 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                              className="h-5 w-5 bg-gray-300 border-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                             />
                             <span className="ml-2 font-medium text-gray-900">{type.name}</span>
                           </label>
@@ -377,7 +451,8 @@ const handleCheckboxChange = (name) => {
                             //Thư note B3
                             value={pokemonData?.base_stats?.hp || ''}
                             
-                            onChange={(e) => setNumber(e.target.value)}
+                            //onChange={(e) => setNumber(e.target.value)}
+                            onChange={handleInputChange}
                             className={`block w-full rounded-md border-0 py-2 px-2 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ${
                               errors.number ? "ring-red-600" : "ring-gray-300"
                             } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
@@ -406,7 +481,7 @@ const handleCheckboxChange = (name) => {
                               //Thư note B3
                               value={pokemonData?.base_stats?.attack || ''}
 
-                              onChange={(e) => setNumber1(e.target.value)}
+                              onChange={handleInputChange}
                               className={`block w-full rounded-md border-0 py-2 px-2 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ${
                               errors.number1 ? "ring-red-600" : "ring-gray-300"
                             } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
@@ -427,14 +502,14 @@ const handleCheckboxChange = (name) => {
                           <div className="w-16 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <input
                               id="defense"
-                              name="Defense"
+                              name="defense"
                               type="number"
                               min="0"
 
                               //Thư note B3
                               value={pokemonData?.base_stats?.defense || ''}
 
-                              onChange={(e) => setNumber2(e.target.value)}
+                              onChange={handleInputChange}
                               className={`block w-full rounded-md border-0 py-2 px-2 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ${
                               errors.number2 ? "ring-red-600" : "ring-gray-300"
                             } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
@@ -462,7 +537,7 @@ const handleCheckboxChange = (name) => {
                               //Thư note B3
                               value={pokemonData?.base_stats?.special_attack || ''}
 
-                              onChange={(e) => setNumber3(e.target.value)}
+                              onChange={handleInputChange}
                               className={`block w-full rounded-md border-0 py-2 px-2 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ${
                               errors.number3 ? "ring-red-600" : "ring-gray-300"
                             } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
@@ -490,7 +565,7 @@ const handleCheckboxChange = (name) => {
                               //Thư note B3
                               value={pokemonData?.base_stats?.special_defense || ''}
 
-                            onChange={(e) => setNumber4(e.target.value)}
+                            onChange={handleInputChange}
                             className={`block w-full rounded-md border-0 py-2 px-2 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ${
                               errors.number4 ? "ring-red-600" : "ring-gray-300"
                             } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
@@ -511,13 +586,13 @@ const handleCheckboxChange = (name) => {
                           <div className="w-16 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <input
                               id="Speed"
-                              name="Speed"
+                              name="speed"
                               type="number"
                               min="0"
 
                               ////Thư note B3
                               value={pokemonData?.base_stats?.speed || ''}
-                            onChange={(e) => setNumber5(e.target.value)}
+                            onChange={handleInputChange}
                             className={`block w-full rounded-md border-0 py-2 px-2 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ${
                               errors.number5 ? "ring-red-600" : "ring-gray-300"
                             } placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
@@ -545,7 +620,7 @@ const handleCheckboxChange = (name) => {
                         name="to"
                         type="text"
                         autoComplete="given-name"
-
+                        onChange={handleInputChange}
                         //Thư note B3
                         value={pokemonData?.evolutions?.[0]?.to || ''}
 
@@ -576,9 +651,9 @@ const handleCheckboxChange = (name) => {
                               //Thư note B3
                               value={move.name}
                               checked={pokemonData?.moves?.map(m => m.name).includes(move.name)} // Kiểm tra xem type có được chọn không
-                              onChange={() => handleCheckboxChange(move.name)} // Gọi hàm khi checkbox thay đổi
+                              onChange={() => onCheckboxChangeMove(move.name)} // Gọi hàm khi checkbox thay đổi
                               
-                              className="h-5 w-5 bg-gray-300 border-2 border-gray-300 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                              className="h-5 w-5 bg-gray-300 border-2 border-gray-300 rounded text-indigo-600 focus:ring-indigo-600"
                             />
                             <span className="ml-2 font-medium text-gray-900">{move.name}</span>
                           </label>
