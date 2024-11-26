@@ -1,8 +1,6 @@
 import { useState, useRef } from "react";
 // Để bắt lỗi trong cái form nha!!!!
 
-
-
 // Hàm kiểm tra lỗi cho Height
 const validateHeight = (height) => {
   // if (!height || parseFloat(height) <= 0) {
@@ -56,7 +54,7 @@ const validateNumber = (number) => {
   return ""; // Không có lỗi
 };
 
-const useFormValidation = () => {
+const useFormValidationForEdit = () => {
   const [height, setHeight] = useState("");  // State lưu giá trị 
   const [weight, setWeight] = useState("");  // State lưu giá trị 
   const [text, setText] = useState("");  // State lưu giá trị 
@@ -67,8 +65,8 @@ const useFormValidation = () => {
   const [number3, setNumber3] = useState(""); 
   const [number4, setNumber4] = useState(""); 
   const [number5, setNumber5] = useState(""); 
-  const [checkboxValue, setCheckboxValue] = useState("");
-  const [checkboxValue1, setCheckboxValue1] = useState("");
+  const [checkboxValue, setCheckboxValue] = useState([]);
+  const [checkboxValue1, setCheckboxValue1] = useState([]);
 
   const [errors, setErrors] = useState({});    // State lưu thông báo lỗi
   const formRef = useRef(null);
@@ -147,4 +145,4 @@ const useFormValidation = () => {
   };
 };
 
-export default useFormValidation;
+export default useFormValidationForEdit;
