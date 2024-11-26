@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 //đây là nguyên cái form nè
 
-export default function EditPokemon({pokemon }) {
+export default function EditPokemon({pokemon, onCancel , onSave }) {
 
   //abilities
   const [abilities, setAbilities] = useState([]);
@@ -272,6 +272,7 @@ const onCheckboxChangeMove = (moveName) => {
         const updatedPokemon = await response.json();
         console.log('Successfully updated Pokemon:', updatedPokemon);
         alert('Pokemon data updated successfully!');
+        if (onSave) onSave();
       } catch (error) {
         console.error('Error updating Pokémon data:', error);
         alert('Failed to update Pokémon data. Please try again.');
@@ -724,13 +725,16 @@ const onCheckboxChangeMove = (moveName) => {
           </div>
     
           <div className="mt-6 flex items-center justify-end gap-x-6">
+            {/* Button Cancel */}
             <button
-              onClick={handleCancel}
+              onClick={onCancel}
               type="button"
               className="text-sm font-semibold text-gray-900"
             >
               Cancel
             </button>
+
+            {/* Button Save */}
             <button
               onClick={handleEdit}
               type="submit"

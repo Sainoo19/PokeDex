@@ -16,11 +16,7 @@ const AdminPokemon = ({onOpen}) => {
     // Thư note B3
     const [selectedPokemon, setSelectedPokemon] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    //const handleOpenModal = () => setIsModalOpen(true);
-    const handleOpenModal = (pokemon) => {
-        setSelectedPokemon(pokemon);
-        setIsModalOpen(true);
-    }
+    
     // Thư note B3 Khi modal mở, ngừng cuộn trang chính
     useEffect(() => {
         if (isModalOpen) {
@@ -34,6 +30,20 @@ const AdminPokemon = ({onOpen}) => {
         document.body.style.overflow = "auto";
         };
     }, [isModalOpen]);
+    //const handleOpenModal = () => setIsModalOpen(true);
+    const handleOpenModal = (pokemon) => {
+        setSelectedPokemon(pokemon);
+        setIsModalOpen(true);
+    }
+	//Thư note B3 - không bị reload từ đầu
+    const handleCloseModal = (shouldRefresh = false) => {
+        console.log("Modal đóng");
+        setIsModalOpen(false);
+        setSelectedPokemon(null);
+        if (shouldRefresh) {
+            fetchData(currentPage, searchQuery);
+        }
+    };
     const getLimit = () => {
         return 10; // Set limit to 10 for all screen sizes
     };
@@ -134,7 +144,11 @@ const AdminPokemon = ({onOpen}) => {
                         <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                             <div className="modal-container bg-white p-6 rounded-lg shadow-lg w-1/2 max-h-[80vh] overflow-y-auto">
                                 
-                                <EditPokemon pokemon={selectedPokemon} />
+                            <EditPokemon 
+                                pokemon={selectedPokemon} 
+                                onCancel={() => handleCloseModal(false)}
+                                onSave={() => handleCloseModal(true)}
+                            />
                             </div>
                         </div>
                     )}
