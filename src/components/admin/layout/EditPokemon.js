@@ -278,6 +278,7 @@ const onCheckboxChangeMove = (moveName) => {
         alert('Failed to update Pokémon data. Please try again.');
       }
     };
+
     return (
       <div>
         <form ref={formRef} onSubmit={handleSave}>

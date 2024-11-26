@@ -44,6 +44,8 @@ const AdminPokemon = ({onOpen}) => {
             fetchData(currentPage, searchQuery);
         }
     };
+    //
+
     const getLimit = () => {
         return 10; // Set limit to 10 for all screen sizes
     };
@@ -152,6 +154,8 @@ const AdminPokemon = ({onOpen}) => {
                             </div>
                         </div>
                     )}
+                    {/* // */}
+                    
                 </table>
                 <Pagination
                     currentPage={currentPage}
